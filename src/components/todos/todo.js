@@ -11,37 +11,43 @@ const Todo = () => {
     const todos = useSelector(state => state.toolkid.todos)
     const value = useSelector(state => state.toolkid.value)
 
+    
+    
+   
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        dispatch(addTodo(value))
-        
+    const addNewTodo = (e) => {
+        e.preventDefault()
+    
+        const newTodo = {
+            id: todos.length + 1,
+            text: value,
+            complited: false,
+        }
+       
+        dispatch(addTodo(newTodo))
+        dispatch(setValue(''))
     }
 
-    const handleChange = (e) => {
-        dispatch(setValue(e.target.value))
-    }
+    
+ 
+
+
     
     
 
     return (
         <div className={styles.todos}>
-            <div className={styles.todo__form}>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={addNewTodo} className={styles.todo__form}>
                     <input 
-                        id={styles.todo__form_input} 
+                        type="text"
                         value={value}
-                        onChange={handleChange} 
+                        onChange={(e)=>dispatch(setValue(e.target.value))} 
                         placeholder='todo'
                     />
                     <button type='submit' className={styles.btn}>Добавить</button>
                 </form>
-             
-                
-            </div>
-           <TodoList todos={todos}/>
-        </div>        
+            <TodoList todos={todos}/>
+        </div>
     )
 }
 

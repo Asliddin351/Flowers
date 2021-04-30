@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const toolkidSlice = createSlice({
     name: 'todo',
     
     initialState: {
         // count: 0,
+        
         todos: [
             {
                 id: 1,
@@ -40,25 +40,50 @@ const toolkidSlice = createSlice({
   
 
         addTodo(state, action) {
-            state.todos.push(action.payload)
-            state.value = ''
+            if(state.value !== ''){
+                state.todos.push(action.payload)
+            }else{
+                return alert('Can you write something in input')
+            }
+            
         },
+        
 
-        deleteTodo(state, action) {
-            state.todos.filter(todo => {
-                if(todo.id === action.payload) {
-                    return false
-                }else{
-                    return state.todos
+        changeTodo (state, action) {
+            state.todos.find(el => {
+                if(el.id === action.payload.id){
+                    return el.text = state.value
+                }else {
+                    return el.text
                 }
             })
         },
 
+        changeStatus(state, action) {
+            let index = state.todos.findIndex(el => el.id === action.payload.id);
+            state.todos[index].complited = !state.todos[index].complited;
+            return state;
+        },
+
+        deleteTodo(state, action) {
+            const newTodo = state.todos.filter(el=>{
+                if(el.id === action.payload) {
+                    return false
+                }else{
+                    return el
+                }
+            })
+            
+            state.todos = newTodo
+
+        },
+
         setValue(state, action) {
             state.value = action.payload
+            
         },
     }
 })
 
 export default toolkidSlice.reducer
-export const {setValue,addTodo, deleteTodo} = toolkidSlice.actions
+export const {setValue,addTodo, deleteTodo, changeStatus, changeTodo} = toolkidSlice.actions
