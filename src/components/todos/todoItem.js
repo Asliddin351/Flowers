@@ -21,7 +21,7 @@ const TodoItem = ({todo}) => {
     }
    
     return (
-        <li className={styles.item} onTouchStart={changeComp}>
+        <li className={styles.item}>
             <input type={'checkbox'} checked={todo.complited} value={todo.complited}  onChange={changeComp}/>
             {todo.id}
 

@@ -123,13 +123,13 @@ input[type=checkbox]  {
     .todo__list {
         width: 100%
     }
-    input[type=checkbox] {
-        display: none;
-        z-index: 99;
+    .item {
+        z-index: 10;
     }
+  
     input[type=text]  {
         height: 45px;
-        z-index: 99;
+        z-index: 999;
     }
     .btn {
         height: 40px;
